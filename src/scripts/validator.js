@@ -94,14 +94,14 @@ export default function Validator() {
 
     const checkPhone = () => {
         let valid = false;
-        const min = 13;
-        const max = 13;
+        const min = 17;
+        const max = 17;
         const number = phoneEl.value.trim();
 
         if (!isRequired(number)) {
             showError(phoneEl, 'Введите телефон!');
         } else if (!isBetween(number.length, min, max)) {
-            showError(phoneEl, `Номер телефона может состоять из ${min} цифр.`);
+            showError(phoneEl, `Номер телефона не валидный!`);
         } else {
             showSuccess(phoneEl);
             valid = true;
