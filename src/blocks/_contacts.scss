@@ -133,3 +133,160 @@
         line-height: 40px;
     }
 }
+
+.modal {
+    padding: 20px 0 90px 0;
+
+    &__wrapper {
+        padding: 0 35px 0 52px;
+    }
+
+    &__btn {
+        border: none;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 40px;
+        width: 365px;
+    }
+}
+
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.modal-window-wrapper {
+    padding: 20px;
+    position: fixed;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    &__window {
+        position: relative;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        background-color: rgb(81, 81, 151);
+        padding: 20px;
+        border-radius: 10px;
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+
+        @media (max-width: 320px) {
+            padding: 10px;
+        }
+    }
+
+    &__close-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: transparent;
+        background-image: url(../src/images/cross.png);
+        background-size: cover;
+    }
+
+    &__headline {
+        align-self: center;
+        text-align: center;
+        padding-inline: 40px;
+
+        @media (max-width: 450px) {
+            font-size: 34px;
+            line-height: 34px;
+        }
+
+        @media (max-width: 320px) {
+            padding-inline: 60px;
+            font-size: 24px;
+            line-height: 24px;
+        }
+    }
+
+    &__text-info {
+        text-align: center;
+
+
+        @media (max-width: 450px) {
+            font-size: 24px;
+            line-height: 24px;
+        }
+
+        @media (max-width: 320px) {
+            font-size: 20px;
+            line-height: 20px;
+        }
+    }
+
+    &__btn-ok {
+        border: none;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 40px;
+
+
+        @media (max-width: 320px) {
+            font-size: 20px;
+            line-height: 20px;
+        }
+    }
+}
+
+// This class is needed to hide elements (by adding this class)
+.hidden-element {
+    display: none !important;
+}
+
+// This class is needed to make red border on inputs with errors
+.error-input {
+    border: 2px solid red !important;
+}
+
+// This class is needed to prevent page scrolling while modal is opened
+.modal-open {
+    overflow: hidden !important;
+}
+
+// This class is needed to stylize error messages
+.error-msg {
+    color: red !important;
+}
+
+// This class is needed to stylize success messages
+.success-msg {
+    color: green !important;
+}
