@@ -54,6 +54,7 @@
         grid-template: 45px 45px 120px / repeat(2, 280px);
         justify-content: space-between;
         row-gap: 27px;
+        gap: 12%;
 
         label {
             display: block;
@@ -129,6 +130,6 @@
         border: none;
         font-weight: bold;
         font-size: 14px;
-        line-height: 45px;
+        line-height: 40px;
     }
 }
