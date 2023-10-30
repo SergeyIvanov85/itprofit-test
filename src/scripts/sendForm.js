@@ -1,42 +1,60 @@
-import { postData } from "./postData.js";
+const baseUrl = 'http://localhost:9090/api';
+const requestStatusOK = 200;
+const requestStatusBad = 400;
 
-function sendForm(url) {
-    const form = document.querySelector("#signup");
-    const infoMsg = document.querySelector("#text");
+const form = document.querySelector('#signup');
+const fields = form.querySelectorAll('input');
+const textarea = form.querySelector('textarea');
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+const successMessage = document.querySelector('.message--success');
+const errorMessage = document.querySelector('.message--error');
 
-        infoMsg.classList.add("hidden-element");
-
-        const spinner = document.createElement("div");
-        spinner.classList.add("dark-spinner");
-        form.insertAdjacentElement("beforeend", spinner);
-
-        postData(
-            url,
-            JSON.stringify({
-                name: document.querySelector("#name").value,
-                mail: document.querySelector("#email").value,
-                phone: document.querySelector("#tel").value,
-                message: document.querySelector("#text").value,
-            })
-        )
-            .then(() => {
-                infoMsg.textContent = "Ваше сообщение успешно отправлено!";
-                infoMsg.classList.add("success-msg");
-                infoMsg.classList.remove("error-msg", "hidden-element");
-                form.reset();
-            })
-            .catch((error) => {
-                infoMsg.textContent = `Во время отправки сообщения произошла ошибка: ${error}`;
-                infoMsg.classList.add("error-msg");
-                infoMsg.classList.remove("success-msg", "hidden-element");
-            })
-            .finally(() => {
-                spinner.remove();
-            });
-    });
+export const getRequest = () => {
+    fetch(`${baseUrl}/ping`, {
+        method: 'GET',
+    })
+        .then(res => {
+            return res.json();
+        })
+        .then(data => console.log(data));
 }
 
-export default sendForm;
+export const postRequest = () => {
+    fetch(`${baseUrl}/registration`, {
+        method: 'POST',
+        body: JSON.stringify({})
+    })
+        .then(res => {
+            return res.json()
+                .then(resData => {
+                    return {
+                        status: res.status,
+                        data: resData
+                    }
+                });
+        })
+        .then(response => {
+            switch (response.status) {
+                case requestStatusOK:
+                    onLoad(response.data);
+                    break;
+                case requestStatusBad:
+                    onError(response.data);
+                    break;
+            }
+        });
+}
+
+const onLoad = (data) => {
+    fields.forEach(field => field.value = '');
+    textarea.value = '';
+    successMessage.textContent = data.message;
+    errorMessage.classList.remove('message-show');
+    successMessage.classList.add('message-show');
+}
+
+const onError = (data) => {
+    errorMessage.textContent = data.message;
+    successMessage.classList.remove('message-show');
+    errorMessage.classList.add('message-show');
+}

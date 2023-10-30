@@ -1,15 +1,23 @@
 import modalWindow from "./scripts/modalWindow.js";
 import PhoneMask from "./scripts/phoneMask.js";
-import sendForm from "./scripts/sendForm.js";
+import { getRequest, postRequest } from './scripts/sendForm.js'
 import Validator from "./scripts/validator.js";
+
+const form = document.querySelector('#signup');
 
 
 document.addEventListener("DOMContentLoaded", () => {
     Validator();
     PhoneMask();
     modalWindow();
-    sendForm("http://localhost:8080/requests");
 });
 
+
+getRequest();
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    postRequest();
+})
 
 
